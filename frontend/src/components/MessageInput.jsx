@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useChatStore } from "../store/useChatStore";
-import { Image, Send, X } from "lucide-react";
+import { FileImage, Forward, Image, Send, X } from "lucide-react";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
-  const { sendMessage } = useChatStore();
+  const { sendMessage, selectedUser } = useChatStore();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -71,8 +71,9 @@ const MessageInput = () => {
         <div className="flex-1 flex gap-2">
           <input
             type="text"
-            className="w-full input input-bordered rounded-lg input-sm sm:input-md"
-            placeholder="Type a message..."
+            className="w-full input input-bordered rounded-lg 
+            input-sm sm:input-md focus:border-none focus:outline-dashed focus:outline-offset-1 focus:outline-1"
+            placeholder={`Message @${selectedUser.fullName} `}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
@@ -86,19 +87,20 @@ const MessageInput = () => {
 
           <button
             type="button"
-            className={`hidden sm:flex btn btn-circle
-                     ${imagePreview ? "text-emerald-600" : "text-zinc-400"}`}
+            className={`hidden sm:flex btn
+                     ${imagePreview ? "text-primary" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >
-            <Image size={20} />
+            <FileImage size={25} strokeWidth={0.75} absoluteStrokeWidth />
           </button>
         </div>
+
         <button
           type="submit"
-          className="btn btn-sm btn-circle"
+          className="sm:flex btn text-zinc-400"
           disabled={!text.trim() && !imagePreview}
         >
-          <Send size={22} />
+          <Forward size={25} strokeWidth={0.75} absoluteStrokeWidth />
         </button>
       </form>
     </div>

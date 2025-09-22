@@ -11,12 +11,17 @@ const PREVIEW_MESSAGES = [
 const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
   return (
-    <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
+    <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl ml-20">
       <div className="space-y-6">
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold">Theme</h2>
           <p className="text-sm text-base-content/70">Choose a theme</p>
         </div>
+
+        <select defaultValue="Pick a color" className="select">
+          <option disabled={true}>Pick a color</option>
+          <option>{THEMES}</option>
+        </select>
 
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
           {THEMES.map((t) => (
@@ -48,9 +53,7 @@ const SettingsPage = () => {
         <div className="rounded-xl border border-base-300 overflow-hidden bg-base-100 shadow-lg">
           <div className="p-4 bg-base-200">
             <div className="max-w-lg mx-auto">
-              {/* Mock Chat UI */}
               <div className="bg-base-100 rounded-xl shadow-sm overflow-hidden">
-                {/* Chat Header */}
                 <div className="px-4 py-3 border-b border-base-300 bg-base-100">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content font-medium">
@@ -76,8 +79,8 @@ const SettingsPage = () => {
                           max-w-[80%] rounded-xl p-3 shadow-sm
                           ${
                             message.isSent
-                              ? "bg-primary text-primary-content"
-                              : "bg-base-200"
+                              ? "chat-bubble-primary text-primary-content"
+                              : "bg-base-300"
                           }
                         `}
                       >

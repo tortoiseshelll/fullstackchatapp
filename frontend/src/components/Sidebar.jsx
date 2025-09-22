@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
 import SidebarSkeleton from "../components/skeletons/SidebarSkeleton";
-import { Users } from "lucide-react";
+import { Handshake, Users } from "lucide-react";
 
 const Sidebar = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } =
@@ -22,11 +22,14 @@ const Sidebar = () => {
   if (isUsersLoading) return <SidebarSkeleton />;
 
   return (
-    <aside className="h-full w-20 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
+    <aside
+      className="h-full w-24 lg:w-80 border-r border-base-300 flex flex-col 
+    transition-all duration-200"
+    >
       <div className="border-b border-base-300 w-full p-5">
         <div className="flex items-center gap-2">
-          <Users className="size-6" />
-          <span className="font-medium hidden lg:block">Contacts</span>
+          <Handshake className="text-primary" size={30} strokeWidth={0.75} absoluteStrokeWidth />
+          <span className="font-medium hidden lg:block">Friendlist</span>
         </div>
 
         <div className="mt-3 hidden lg:flex items-center gap-2">
@@ -57,7 +60,7 @@ const Sidebar = () => {
             : ""
         }`}
           >
-            <div className="relative mx-auto lg:mx-0">
+            <div className="relative mx-auto lg:mx-0 ring-1 ring-primary rounded-full">
               <img
                 src={user.profilePic || "/avatar.png"}
                 alt={user.name}
@@ -66,23 +69,35 @@ const Sidebar = () => {
 
               {onlineUsers.includes(user._id) && (
                 <span
-                  className="absolute bottom-0 right-0 size-3 bg-green-600
-              rounded-full ring-2 ring-zinc-900"
+                  className="absolute top-0.5 right-0.5 size-2.5 bg-lime-500
+              rounded-full ring-1 ring-lime-600"
                 />
               )}
             </div>
 
             <div className="hidden lg:block text-left min-w-0">
-              <div className="font-medium truncate">{user.fullName}</div>
-              <div className="text-sm text-zinc-400">
-                {onlineUsers.includes(user._id) ? "Online" : "Offline"}
+              <div
+                className={`font-medium truncate
+              ${onlineUsers.includes(user._id) ? "" : "opacity-50"}
+              `}
+              >
+                {user.fullName}
               </div>
+              <p
+                className={`text-sm text-base-content/70
+              ${onlineUsers.includes(user._id) ? "text-lime-500" : "opacity-50"}
+              `}
+              >
+                {onlineUsers.includes(user._id) ? "Online" : "Offline"}
+              </p>
             </div>
           </button>
         ))}
 
         {filteredUsers.length === 0 && (
-          <div className="text-center text-zinc-500 py-4">No online users</div>
+          <div className="text-center text-zinc-500 py-4">
+            No online friends
+          </div>
         )}
       </div>
     </aside>

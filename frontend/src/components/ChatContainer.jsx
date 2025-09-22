@@ -54,7 +54,7 @@ const ChatContainer = () => {
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto space-y-2 overflow-hidden px-10">
         {messages.map((message) => (
           <div
             key={message._id}
@@ -75,13 +75,34 @@ const ChatContainer = () => {
                 />
               </div>
             </div>
-            <div className="chat-header mb-1">
-              <time className="text-xs opacity-50 ml-1">
+
+            <div
+              className={`flex items-center chat-header mb-1 ${
+                message.senderId === authUser._id
+                  ? "flex-row-reverse"
+                  : "flex-row"
+              }`}
+            >
+              <div className="text-base-400">
+                {message.senderId === authUser._id
+                  ? authUser.fullName
+                  : selectedUser.fullName}
+              </div>
+
+              <time className="text-xs opacity-50 mx-1">
                 {formatMessageTime(message.createdAt)}
               </time>
             </div>
 
-            <div className="chat-bubble flex flex-col">
+            <div
+              className={`chat-bubble flex flex-col
+              ${
+                message.senderId === authUser._id
+                  ? "bg-primary text-primary-content"
+                  : "bg-base-300 text-base-content"
+              }
+              `}
+            >
               {message.image && (
                 <img
                   src={message.image}
@@ -89,8 +110,9 @@ const ChatContainer = () => {
                   className="sm:max-w-[200px] rounded-md mb-2"
                 />
               )}
-              {message.text && <p>{message.text}</p>}
+              {message.text && <p className="break-words">{message.text}</p>}
             </div>
+
           </div>
         ))}
       </div>
