@@ -8,6 +8,7 @@ import {
   Eye,
   EyeOff,
   Loader2,
+  Cat,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
@@ -24,7 +25,7 @@ const SignUpPage = () => {
   const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
-    if (!formData.fullName.trim()) return toast.error("Gimme full name");
+    if (!formData.fullName.trim()) return toast.error("Gimme nickname");
     if (!formData.email.trim()) return toast.error("Gimme email");
     if (!/\S+@\S+\.\S+/.test(formData.email))
       return toast.error("Invalid email");
@@ -50,7 +51,12 @@ const SignUpPage = () => {
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <MessageSquare className="size-6 text-primary" />
+                <Cat
+                  className="w-16 text-primary"
+                  size={40}
+                  strokeWidth={0.75}
+                  absoluteStrokeWidth
+                />
               </div>
               <h1 className="text-2xl font-bold mt-2">Create Account</h1>
               <p className="text-base-content/60">
@@ -62,7 +68,7 @@ const SignUpPage = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Full Name</span>
+                <span className="label-text font-medium">Nickname</span>
               </label>
 
               <div className="relative">
@@ -73,7 +79,7 @@ const SignUpPage = () => {
                 <input
                   type="text"
                   className={`input input-bordered w-full pl-10`}
-                  placeholder="Name"
+                  placeholder="Nickname"
                   value={formData.fullName}
                   onChange={(e) =>
                     setFormData({ ...formData, fullName: e.target.value })
@@ -164,10 +170,10 @@ const SignUpPage = () => {
         </div>
       </div>
 
-      <AuthImagePattern
+      {/* <AuthImagePattern
         title="Join the cats"
         subtitle="Connect with cars, share pizza, and stay in touch with cats"
-      />
+      /> */}
     </div>
   );
 };
