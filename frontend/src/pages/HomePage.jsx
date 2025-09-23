@@ -13,7 +13,7 @@ const HomePage = () => {
         {/* flex items-center justify-center pt-20 px-4 */}
 
         <div className="bg-base-100 w-full h-screen">
-          <div className="flex h-full rounded-lg overflow-hidden">
+          <div className="flex h-screen rounded-lg overflow-hidden">
             <Sidebar />
 
             {!selectedUser ? <NoChatSelected /> : <ChatContainer />}

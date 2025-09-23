@@ -16,7 +16,6 @@ const ChatContainer = () => {
     subscribeToMessages,
     unsubscribeFromMessages,
   } = useChatStore();
-
   const { authUser } = useAuthStore();
 
   const messageEndRef = useRef(null);
@@ -35,8 +34,11 @@ const ChatContainer = () => {
   ]);
 
   useEffect(() => {
-    if (messageEndRef.current && messages) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollTo({
+        top: messageEndRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [messages]);
 
@@ -51,17 +53,19 @@ const ChatContainer = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col overflow-auto">
+    <div className="flex-1 flex flex-col overflow-hidden">
       <ChatHeader />
 
-      <div className="flex-1 overflow-y-auto space-y-2 overflow-hidden px-10">
+      <div
+        className="flex-1 overflow-y-auto space-y-2 px-10"
+        ref={messageEndRef}
+      >
         {messages.map((message) => (
           <div
             key={message._id}
             className={`chat ${
               message.senderId === authUser._id ? "chat-end" : "chat-start"
             }`}
-            ref={messageEndRef}
           >
             <div className="chat-image avatar">
               <div className="size-10 rounded-full border">
@@ -112,7 +116,6 @@ const ChatContainer = () => {
               )}
               {message.text && <p className="break-words">{message.text}</p>}
             </div>
-
           </div>
         ))}
       </div>

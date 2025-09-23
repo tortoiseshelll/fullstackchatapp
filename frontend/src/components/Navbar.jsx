@@ -1,10 +1,21 @@
 import React from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import { Cat, LogOut, Settings, UserCog } from "lucide-react";
+import { useChatStore } from "../store/useChatStore";
+import {
+  Cat,
+  LogOut,
+  Settings,
+  UserCog,
+  Volume2Icon,
+  VolumeOffIcon,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+
+const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
+  const { isSoundEnabled, toggleSound } = useChatStore();
 
   return (
     <header
@@ -31,6 +42,23 @@ const Navbar = () => {
           </div>
 
           <div className="flex flex-col items-center gap-2 mb-4">
+            <button
+              className="text-slate-400 hover:text-slate-200 transition-colors"
+              onClick={() => {
+                mouseClickSound.currentTime = 0;
+                mouseClickSound
+                  .play()
+                  .catch((error) => console.log("Audio play failed: ", error));
+                toggleSound();
+              }}
+            >
+              {isSoundEnabled ? (
+                <Volume2Icon className="size-5" />
+              ) : (
+                <VolumeOffIcon className="size-5" />
+              )}
+            </button>
+
             {authUser && (
               <>
                 <Link to={"/profile"} className={`btn btn-sm gap-2`}>
