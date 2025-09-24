@@ -1,5 +1,5 @@
 import React from "react";
-import UserList from "./userList";
+import UserList from "./UserList";
 
 const Search = ({ searchKey, setSearchKey }) => {
   return (
