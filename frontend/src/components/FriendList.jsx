@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import UserList from "./userList";
 import { useChatStore } from "../store/useChatStore";
 
 const FriendList = () => {
