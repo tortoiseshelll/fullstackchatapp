@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare } from "lucide-react";
+import { Cat, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
@@ -23,7 +23,12 @@ const LoginPage = () => {
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <MessageSquare className="size-6 text-primary" />
+                <Cat
+                  className="w-16 text-primary"
+                  size={40}
+                  strokeWidth={0.75}
+                  absoluteStrokeWidth
+                />
               </div>
               <h1 className="text-2xl font-bold mt-2">
                 Welcome Back Traveller

@@ -57,7 +57,7 @@ const ChatContainer = () => {
       <ChatHeader />
 
       <div
-        className="flex-1 overflow-y-auto space-y-2 px-10"
+        className="flex-1 overflow-y-auto space-y-2 px-2 lg:px-5"
         ref={messageEndRef}
       >
         {messages.map((message) => (
@@ -68,7 +68,7 @@ const ChatContainer = () => {
             }`}
           >
             <div className="chat-image avatar">
-              <div className="size-10 rounded-full border">
+              <div className="size-10 rounded-full border border-base-300">
                 <img
                   src={
                     message.senderId === authUser._id

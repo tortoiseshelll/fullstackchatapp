@@ -8,7 +8,7 @@ const HomePage = () => {
   const { selectedUser } = useChatStore();
 
   return (
-    <div className="h-screen bg-base-200 ml-20">
+    <div className="h-screen bg-base-200 ml-11 lg:ml-20">
       <div className="">
         {/* flex items-center justify-center pt-20 px-4 */}
 
