@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { FileImage, Forward, Smile, X } from "lucide-react";
-import EmojiPicker from "emoji-picker-react";
+// import EmojiPicker from "emoji-picker-react";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
@@ -47,10 +47,10 @@ const MessageInput = () => {
     }
   };
 
-  const handleEmojiClick = (emojiData) => {
-    setText((prev) => prev + emojiData.emoji);
-    setOpenPicker(false);
-  };
+  // const handleEmojiClick = (emojiData) => {
+  //   setText((prev) => prev + emojiData.emoji);
+  //   setOpenPicker(false);
+  // };
 
   return (
     <div className="p-4 w-full">
@@ -76,12 +76,12 @@ const MessageInput = () => {
 
       {openPicker && (
         <div className="absolute bottom-20 right-4 z-50">
-          <EmojiPicker
+          {/* <EmojiPicker
             onEmojiClick={handleEmojiClick}
             theme="dark"
             previewConfig={{ showPreview: false }}
             skinTonesDisabled={true}
-          />
+          /> */}
         </div>
       )}
 
