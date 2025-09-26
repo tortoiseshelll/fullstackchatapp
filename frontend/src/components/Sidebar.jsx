@@ -13,10 +13,8 @@ const Sidebar = () => {
   const [searchKey, setSearchKey] = useState("");
 
   useEffect(() => {
-
     getUsers();
     getFriendRequests();
-
   }, [getUsers, getFriendRequests]);
 
   if (isUsersLoading) return <SidebarSkeleton />;
@@ -33,7 +31,7 @@ const Sidebar = () => {
           strokeWidth={0.75}
           absoluteStrokeWidth
         />
-        <span className="font-medium lg:block">v. 1.1</span>
+        <span className="font-medium lg:block">v. 1.3</span>
       </div>
 
       <div className="border-t border-base-300 mt-2 lg:block">
