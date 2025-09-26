@@ -1,38 +1,50 @@
-import React from "react";
 import { useChatStore } from "../store/useChatStore";
-import { MessageSquareMore } from "lucide-react";
+import FriendsList from "./FriendList";
+import Requests from "./Requests";
+import Search from "./Search";
 
 const ActiveTabSwitch = () => {
-  const { activeTab, setActiveTab } = useChatStore();
+  const { friends, friendRequests, activeTab, setActiveTab } = useChatStore();
 
   return (
     <div
+      role="tablist"
       className="tabs tabs-lifted bg-base-200 gap-2 flex flex-col 
     items-center justify-center lg:flex lg:flex-row"
     >
       <button
-        onClick={() => setActiveTab("chats")}
-        className={`tab ${
-          activeTab === "chats" ? "bg-base-300" : "text-base-400"
-        } `}
-      >
-        <p className="">Chats</p>
-      </button>
-      <button
+        role="tab"
         onClick={() => setActiveTab("friends")}
-        className={`tab ${
+        className={`tab tab-active ${
           activeTab === "friends" ? "bg-base-300" : "text-base-400"
         } `}
       >
-        <p className="">Friends</p>
+        Friends ({friends.length})
       </button>
+
       <button
+        role="tab"
+        onClick={() => setActiveTab("requests")}
+        className={`tab ${
+          activeTab === "requests" ? "bg-base-300" : "text-base-400"
+        } `}
+      >
+        Requests
+        {friendRequests.length > 0 && (
+          <span className="absolute -top-1 -right-1 bg-error text-error-content text-xs rounded-full h-4 w-4 flex items-center justify-center">
+            {friendRequests.length}
+          </span>
+        )}
+      </button>
+
+      <button
+        role="tab"
         onClick={() => setActiveTab("search")}
         className={`tab ${
           activeTab === "search" ? "bg-base-300" : "text-base-400"
         }  `}
       >
-        <p className="">Search</p>
+        Search
       </button>
     </div>
   );

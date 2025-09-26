@@ -3,17 +3,21 @@ import { useChatStore } from "../store/useChatStore";
 import SidebarSkeleton from "../components/skeletons/SidebarSkeleton";
 import { Handshake } from "lucide-react";
 import ActiveTabSwitch from "./ActiveTabSwitch";
-import ChatsList from "./ChatsList";
 import FriendList from "./FriendList";
 import Search from "./Search";
+import Requests from "./Requests";
 
 const Sidebar = () => {
-  const { getUsers, isUsersLoading, activeTab } = useChatStore();
+  const { getUsers, getFriendRequests, isUsersLoading, activeTab } =
+    useChatStore();
   const [searchKey, setSearchKey] = useState("");
 
   useEffect(() => {
+
     getUsers();
-  }, [getUsers]);
+    getFriendRequests();
+
+  }, [getUsers, getFriendRequests]);
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
@@ -36,10 +40,10 @@ const Sidebar = () => {
         <ActiveTabSwitch />
 
         <div className="border-t border-base-300 pt-2">
-          {activeTab === "chats" ? (
-            <ChatsList />
-          ) : activeTab === "friends" ? (
+          {activeTab === "friends" ? (
             <FriendList />
+          ) : activeTab === "requests" ? (
+            <Requests />
           ) : (
             <Search searchKey={searchKey} setSearchKey={setSearchKey} />
           )}

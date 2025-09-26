@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import { useChatStore } from "../store/useChatStore";
-import { FileImage, Forward, Image, Send, X } from "lucide-react";
+import { FileImage, Forward, Smile, X } from "lucide-react";
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [openPicker, setOpenPicker] = useState(false);
   const fileInputRef = useRef(null);
   const { sendMessage, selectedUser } = useChatStore();
 
@@ -67,6 +70,18 @@ const MessageInput = () => {
         </div>
       )}
 
+      {openPicker && (
+        <div className="absolute bottom-20 right-4 z-50">
+          <Picker
+            data={data}
+            onEmojiSelect={console.log}
+            theme="auto"
+            previewPosition="none"
+            skinTonePosition="none"
+          />
+        </div>
+      )}
+
       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
         <div className="flex-1 flex gap-2">
           <input
@@ -77,6 +92,23 @@ const MessageInput = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
+
+          <button
+            type="button"
+            className={`absolute right-32 bottom-6 sm:flex btn btn-ghost btn-circle btn-sm bg-transparent
+                     text-primary `}
+            onClick={() => setOpenPicker(!openPicker)}
+          >
+            <Smile size={25} strokeWidth={1} absoluteStrokeWidth />
+          </button>
+
+          {openPicker && (
+            <div
+              className="fixed inset-0 z-40"
+              onClick={() => setOpenPicker(false)}
+            />
+          )}
+
           <input
             type="file"
             accept="image/*"
@@ -87,7 +119,7 @@ const MessageInput = () => {
 
           <button
             type="button"
-            className={`hidden sm:flex btn
+            className={`hidden absolute right-24 bottom-6 sm:flex btn btn-ghost btn-circle btn-sm
                      ${imagePreview ? "text-primary" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >

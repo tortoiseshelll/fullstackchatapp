@@ -1,4 +1,3 @@
-
 const SidebarSkeleton = () => {
   const skeletonContacts = Array(8).fill(null);
 
@@ -7,10 +6,7 @@ const SidebarSkeleton = () => {
       className="h-full w-24 lg:w-80 border-r border-base-300 flex flex-col 
           transition-all duration-200"
     >
-      <div className="border-b border-base-300 p-5 mt-28">
-      </div>
-
-      <div className="overflow-y-auto w-full py-3">
+      <div className="overflow-y-auto w-full">
         {skeletonContacts.map((_, idx) => (
           <div key={idx} className="w-full p-3 flex items-center gap-3">
             <div className="relative mx-auto lg:mx-0">
