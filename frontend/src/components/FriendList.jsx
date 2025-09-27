@@ -32,13 +32,6 @@ const FriendList = () => {
       })
     : friends;
 
-  // const handleLogout = (e) => {
-  //   e.stopPropagation();
-  //   if (window.confirm("Do you want to logout?")) {
-  //     logout();
-  //   }
-  // };
-
   const handleFriendClick = (friendship) => {
     const friend =
       friendship.user1._id === authUser._id

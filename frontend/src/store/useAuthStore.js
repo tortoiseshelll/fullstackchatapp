@@ -60,11 +60,13 @@ export const useAuthStore = create((set, get) => ({
 
   logout: async () => {
     try {
-      await axiosInstance.post("/auth/logout");
-      set({ authUser: null });
-      toast.success("Cat logged out");
+      if (window.confirm("Do you want to logout?")) {
+        await axiosInstance.post("/auth/logout");
+        set({ authUser: null });
+        toast.success("Cat logged out");
 
-      get().disconnectSocket();
+        get().disconnectSocket();
+      }
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -100,34 +102,31 @@ export const useAuthStore = create((set, get) => ({
     socket.on("getOnlineUsers", (userIds) => {
       set({ onlineUsers: userIds });
     });
-  
+
     socket.on("friendRequestReceived", (data) => {
-      
       import("./useChatStore").then(({ useChatStore }) => {
         const chatStore = useChatStore.getState();
         chatStore.handleFriendRequestReceived(data);
       });
-      
+
       toast.success("You received a new friend request!");
     });
 
     socket.on("friendRequestAccepted", (data) => {
-      
       import("./useChatStore").then(({ useChatStore }) => {
         const chatStore = useChatStore.getState();
         chatStore.handleFriendRequestAccepted(data);
       });
-      
+
       toast.success("Your friend request was accepted!");
     });
 
     socket.on("friendRequestRejected", (data) => {
-      
       import("./useChatStore").then(({ useChatStore }) => {
         const chatStore = useChatStore.getState();
         chatStore.handleFriendRequestRejected(data);
       });
-      
+
       toast.info("Your friend request was declined");
     });
   },
